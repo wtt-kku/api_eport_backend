@@ -40,7 +40,7 @@ class MemberRepositories extends Controller
             'idcard' => $request['payloads']['idcard'],
         ];
         $response =  $this->memberModel->addMember($data);
-        $this->logger->writeApiLogs($request, $response, 'userRegis');
+        $this->logger->writeApiLogs($request, $response, 'member_register');
         return $response;
     }
 
@@ -62,6 +62,7 @@ class MemberRepositories extends Controller
                 'resultMessage' => 'your account must be member.',
             ];
         }
+        $this->logger->writeApiLogs($request, $response, 'member_edit');
         return $response;
     }
 }

@@ -105,7 +105,7 @@ class MemberModel
             if ($isExist) {
                 $this->memberEntity->update($member_id, $data);
                 $result = array(
-                    'resultCode' => 200,
+                    'resultCode' => 201,
                     'resultMessage' => 'successfully!',
                 );
                 return $result;
