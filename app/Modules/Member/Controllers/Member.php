@@ -61,4 +61,16 @@ class Member extends BaseController
         }
         return $this->setResponseFormat('json')->respond($this->MemberRepositories->memberEdit($request), 200);
     }
+
+    public function memberProfile()
+    {
+        $rules = [
+            'member_id' => 'required|integer',
+        ];
+        $request = $this->apiRequest->getRequestInput($this->request);
+        if (!$this->apiRequest->validateRequest($request, $rules)) {
+            return $this->fail($this->apiRequest->validator->getErrors());
+        }
+        return $this->setResponseFormat('json')->respond($this->MemberRepositories->memberPrfoile($request), 200);
+    }
 }

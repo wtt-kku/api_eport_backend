@@ -8,4 +8,5 @@ $routes->group(API_PATH . '/member', ['namespace' => 'App\Modules\Member\Control
     $subroutes->post('login', 'Member::memberLogin');
     $subroutes->post('register', 'Member::memberRegister');
     $subroutes->post('edit', 'Member::memberEdit');
+    $subroutes->post('profile', 'Member::memberProfile');
 });

@@ -124,4 +124,34 @@ class MemberModel
             return $result;
         }
     }
+
+    public function memberPrfoile($member_id)
+    {
+        $memberTable = $this->db->table('member');
+        $query = $memberTable->select('*')
+            ->where('member_id', $member_id)
+            ->get()->getResultArray();
+        $isExist = !empty($query) ? true : false;
+        if ($isExist) {
+            $filterData = 'member_id,member_email,username,firstname,lastname,gender,idcard,address,phone,province_name_th,';
+            $builder = $this->db->table('member');
+            $builder = $builder->select($filterData);
+            $builder = $builder->where('member_id', $member_id);
+            $builder = $builder->join('province', 'province.province_id  = member.province_id');
+            $builder = $builder->join('amphur', 'amphur.amphur_id = member.amphur_id');
+            $memberData = $builder->get()->getResultArray();
+
+            $result = array(
+                'resultCode' => 200,
+                'resultMessage' => 'successfully!',
+                'data' => $memberData
+            );
+        } else {
+            $result = array(
+                'resultCode' => 401,
+                'resultMessage' => 'your member_id is invalid.',
+            );
+        }
+        return $result;
+    }
 }

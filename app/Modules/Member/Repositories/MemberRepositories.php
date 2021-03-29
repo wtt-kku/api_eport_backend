@@ -65,4 +65,12 @@ class MemberRepositories extends Controller
         $this->logger->writeApiLogs($request, $response, 'member_edit');
         return $response;
     }
+
+    public function memberPrfoile($request)
+    {
+        $member_id = $request['payloads']['member_id'];
+        $response =  $this->memberModel->memberPrfoile($member_id);
+        $this->logger->writeApiLogs($request, $response, 'member_edit');
+        return $response;
+    }
 }
