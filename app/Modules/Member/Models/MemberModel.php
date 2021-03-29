@@ -133,7 +133,7 @@ class MemberModel
             ->get()->getResultArray();
         $isExist = !empty($query) ? true : false;
         if ($isExist) {
-            $filterData = 'member_id,member_email,username,firstname,lastname,gender,idcard,address,phone,province_name_th,';
+            $filterData = 'member_id,member_email,username,firstname,lastname,gender,idcard,address,phone,province_name_th,amphur_name_th';
             $builder = $this->db->table('member');
             $builder = $builder->select($filterData);
             $builder = $builder->where('member_id', $member_id);
