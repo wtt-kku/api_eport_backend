@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers;
 
 use \Firebase\JWT\JWT;
@@ -46,6 +47,18 @@ class UserUtils
                 'resultMessage' => 'failed',
             );
             return $result;
+        }
+    }
+
+    public function jwtDecodeCheckAccType($token, $userype)
+    {
+        try {
+            $decode = (array) JWT::decode($token, JWT_KEY, array(JWT_ALGORITHM));
+            $accountType =  $decode['account_type'];
+            $isTypeCorrect =  ($accountType == $userype) ?  true :  false;
+            return $isTypeCorrect;
+        } catch (\Exception $e) {
+            return false;
         }
     }
 }
