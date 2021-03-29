@@ -63,13 +63,13 @@ class MemberModel
 
     public function addMember($data)
     {
-        $userTable = $this->db->table('member');
-        $query = $userTable->select('*')
+        $memberTable = $this->db->table('member');
+        $query = $memberTable->select('*')
             ->where('username', $data['username'])
             ->get()->getResultArray();
-        $userData = !empty($query) ? $query[0] : null;
+        $memberData = !empty($query) ? $query[0] : null;
 
-        if (!empty($userData)) {
+        if (!empty($memberData)) {
             $result = array(
                 'resultCode' => 401,
                 'resultMessage' => 'Dupicate username',
@@ -88,6 +88,38 @@ class MemberModel
             $result = array(
                 'resultCode' => 500,
                 'resultMessage' => 'error!'
+            );
+            return $result;
+        }
+    }
+
+    public function editMember($member_id, $data)
+    {
+        try {
+
+            $memberTable = $this->db->table('member');
+            $query = $memberTable->select('*')
+                ->where('member_id', $member_id)
+                ->get()->getResultArray();
+            $isExist = !empty($query) ? true : false;
+            if ($isExist) {
+                $this->memberEntity->update($member_id, $data);
+                $result = array(
+                    'resultCode' => 200,
+                    'resultMessage' => 'successfully!',
+                );
+                return $result;
+            } else {
+                $result = array(
+                    'resultCode' => 401,
+                    'resultMessage' => 'your member_id is invalid.'
+                );
+                return $result;
+            }
+        } catch (\Exception $e) {
+            $result = array(
+                'resultCode' => 500,
+                'resultMessage' => $e
             );
             return $result;
         }

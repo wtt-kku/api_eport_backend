@@ -46,4 +46,19 @@ class Member extends BaseController
         }
         return $this->setResponseFormat('json')->respond($this->MemberRepositories->memberRegister($request), 200);
     }
+
+    public function memberEdit()
+    {
+        $rules = [
+            'member_id' => 'required|integer',
+            'email' => 'required|valid_email',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+        ];
+        $request = $this->apiRequest->getRequestInput($this->request);
+        if (!$this->apiRequest->validateRequest($request, $rules)) {
+            return $this->fail($this->apiRequest->validator->getErrors());
+        }
+        return $this->setResponseFormat('json')->respond($this->MemberRepositories->memberEdit($request), 200);
+    }
 }
