@@ -38,6 +38,9 @@ class MemberRepositories extends Controller
             'firstname' => $request['payloads']['firstname'],
             'lastname' => $request['payloads']['lastname'],
             'idcard' => $request['payloads']['idcard'],
+            'address' => $request['payloads']['address'],
+            'province_id' => $request['payloads']['province_id'],
+            'amphur_id' => $request['payloads']['amphur_id'],
         ];
         $response =  $this->memberModel->addMember($data);
         $this->logger->writeApiLogs($request, $response, 'member_register');

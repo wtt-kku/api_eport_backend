@@ -18,7 +18,7 @@ class MemberEntity extends Model
         'gender',
         'idcard',
         'address',
-        'anphur_id',
+        'amphur_id',
         'province_id',
         'phone',
         'status'

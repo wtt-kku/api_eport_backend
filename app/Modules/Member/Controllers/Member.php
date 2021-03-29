@@ -38,6 +38,8 @@ class Member extends BaseController
             'firstname' => 'required|string',
             'lastname' => 'required|string',
             'idcard' => 'required|exact_length[13]|integer',
+            'province_id' => 'required|integer',
+            'amphur_id' => 'required|integer',
         ];
 
         $request = $this->apiRequest->getRequestInput($this->request);
