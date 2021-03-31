@@ -10,7 +10,6 @@ class CategoryEntity extends Model
     protected $primaryKey = 'category_id';
     protected $returnType = 'array';
     protected $allowedFields = [
-        'category_id',
         'category_name',
     ];
 }

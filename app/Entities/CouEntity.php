@@ -10,7 +10,6 @@ class CouEntity extends Model
     protected $primaryKey = 'cou_id';
     protected $returnType = 'array';
     protected $allowedFields = [
-        'cou_id',
         'cou_type',
         'cou_name_th',
         'cou_name_en',

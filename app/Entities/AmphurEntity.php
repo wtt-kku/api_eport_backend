@@ -10,7 +10,6 @@ class AmphurEntity extends Model
     protected $primaryKey = 'amphur_id';
     protected $returnType = 'array';
     protected $allowedFields = [
-        'province_id ',
         'code',
         'amphur_name_th',
         'amphur_name_en',
