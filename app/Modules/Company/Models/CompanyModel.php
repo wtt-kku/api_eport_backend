@@ -93,4 +93,36 @@ class CompanyModel
             return $result;
         }
     }
+
+    public function editCopany($cou_id, $data)
+    {
+        try {
+
+            $companyTable = $this->db->table('cou');
+            $query = $companyTable->select('*')
+                ->where('cou_id', $cou_id)
+                ->get()->getResultArray();
+            $isExist = !empty($query) ? true : false;
+            if ($isExist) {
+                $this->couEntity->update($cou_id, $data);
+                $result = array(
+                    'resultCode' => 201,
+                    'resultMessage' => 'successfully!',
+                );
+                return $result;
+            } else {
+                $result = array(
+                    'resultCode' => 401,
+                    'resultMessage' => 'your cou_id is invalid.'
+                );
+                return $result;
+            }
+        } catch (\Exception $e) {
+            $result = array(
+                'resultCode' => 500,
+                'resultMessage' => $e
+            );
+            return $result;
+        }
+    }
 }

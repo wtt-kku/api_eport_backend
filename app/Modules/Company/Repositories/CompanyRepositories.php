@@ -52,4 +52,33 @@ class CompanyRepositories extends Controller
         $this->logger->writeApiLogs($request, $response, 'company_register');
         return $response;
     }
+
+    public function companyEdit($request)
+    {
+        $token = $request['headers']['Authorization'];
+        $checkType = $this->userUtils->jwtDecodeCheckAccType($token, "company");
+        if ($checkType) {
+            $cou_id = $request['payloads']['cou_id'];
+            $data = [
+                'cou_name_th' => $request['payloads']['comnameTH'],
+                'cou_name_en' => $request['payloads']['comnameEN'],
+                'cou_description' => $request['payloads']['description'],
+                'cou_tax_id' => $request['payloads']['taxID'],
+                'phone' => $request['payloads']['phone'],
+                'address' => $request['payloads']['address'],
+                'amphur_id' => $request['payloads']['province_id'],
+                'province_id' => $request['payloads']['amphur_id'],
+            ];
+
+            $response =  $this->companyModel->editCopany($cou_id, $data);
+        } else {
+            $response = [
+                'resultCode' => 403,
+                'resultMessage' => 'your account must be company.',
+            ];
+        }
+        $this->logger->writeApiLogs($request, $response, 'member_edit');
+        return $response;
+        return $request;
+    }
 }

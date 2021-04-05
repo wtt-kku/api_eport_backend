@@ -44,8 +44,8 @@ class Filters extends BaseConfig
         ],
         'verifyAuthorization' => [
             'before' => [
-
                 API_PATH . '/member/edit',
+                API_PATH . '/company/edit',
             ],
         ],
     ];
