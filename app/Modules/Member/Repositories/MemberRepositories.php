@@ -73,7 +73,7 @@ class MemberRepositories extends Controller
     {
         $member_id = $request['payloads']['member_id'];
         $response =  $this->memberModel->memberProfile($member_id);
-        $this->logger->writeApiLogs($request, $response, 'member_edit');
+        $this->logger->writeApiLogs($request, $response, 'member_profile');
         return $response;
     }
 }
