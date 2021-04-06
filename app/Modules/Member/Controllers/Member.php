@@ -73,6 +73,6 @@ class Member extends BaseController
         if (!$this->apiRequest->validateRequest($request, $rules)) {
             return $this->fail($this->apiRequest->validator->getErrors());
         }
-        return $this->setResponseFormat('json')->respond($this->MemberRepositories->memberPrfoile($request), 200);
+        return $this->setResponseFormat('json')->respond($this->MemberRepositories->memberProfile($request), 200);
     }
 }
