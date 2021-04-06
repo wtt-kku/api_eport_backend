@@ -125,7 +125,7 @@ class MemberModel
         }
     }
 
-    public function memberPrfoile($member_id)
+    public function memberProfile($member_id)
     {
         $memberTable = $this->db->table('member');
         $query = $memberTable->select('*')

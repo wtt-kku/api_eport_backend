@@ -69,10 +69,10 @@ class MemberRepositories extends Controller
         return $response;
     }
 
-    public function memberPrfoile($request)
+    public function memberProfile($request)
     {
         $member_id = $request['payloads']['member_id'];
-        $response =  $this->memberModel->memberPrfoile($member_id);
+        $response =  $this->memberModel->memberProfile($member_id);
         $this->logger->writeApiLogs($request, $response, 'member_edit');
         return $response;
     }
