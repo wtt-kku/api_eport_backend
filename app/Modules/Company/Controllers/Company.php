@@ -74,4 +74,16 @@ class Company extends BaseController
         }
         return $this->setResponseFormat('json')->respond($this->companyRepositories->companyEdit($request), 200);
     }
+
+    public function companyProfile()
+    {
+        $rules = [
+            'cou_id' => 'required|integer',
+        ];
+        $request = $this->apiRequest->getRequestInput($this->request);
+        if (!$this->apiRequest->validateRequest($request, $rules)) {
+            return $this->fail($this->apiRequest->validator->getErrors());
+        }
+        return $this->setResponseFormat('json')->respond($this->companyRepositories->companyProfile($request), 200);
+    }
 }

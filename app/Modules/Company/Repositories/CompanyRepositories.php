@@ -77,8 +77,16 @@ class CompanyRepositories extends Controller
                 'resultMessage' => 'your account must be company.',
             ];
         }
-        $this->logger->writeApiLogs($request, $response, 'member_edit');
+        $this->logger->writeApiLogs($request, $response, 'company_edit');
         return $response;
-        return $request;
+    }
+
+
+    public function companyProfile($request)
+    {
+        $cou_id = $request['payloads']['cou_id'];
+        $response =  $this->companyModel->companyProfile($cou_id);
+        $this->logger->writeApiLogs($request, $response, 'company_profile');
+        return $response;
     }
 }

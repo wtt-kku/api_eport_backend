@@ -125,4 +125,35 @@ class CompanyModel
             return $result;
         }
     }
+
+    public function companyProfile($cou_id)
+    {
+        $memberTable = $this->db->table('cou');
+        $query = $memberTable->select('*')
+            ->where('cou_id', $cou_id)
+            ->where('cou_type', "0")
+            ->get()->getResultArray();
+        $isExist = !empty($query) ? true : false;
+        if ($isExist) {
+            $filterData = 'cou_id,cou_name_th,cou_name_en,cou_description,cou_tax_id,phone,cou_email,address,province_name_th,amphur_name_th';
+            $builder = $this->db->table('cou');
+            $builder = $builder->select($filterData);
+            $builder = $builder->where('cou_id', $cou_id);
+            $builder = $builder->join('province', 'province.province_id  = cou.province_id');
+            $builder = $builder->join('amphur', 'amphur.amphur_id = cou.amphur_id');
+            $companyData = $builder->get()->getResultArray();
+
+            $result = array(
+                'resultCode' => 200,
+                'resultMessage' => 'successfully!',
+                'data' => $companyData
+            );
+        } else {
+            $result = array(
+                'resultCode' => 401,
+                'resultMessage' => 'your cou_id is invalid.',
+            );
+        }
+        return $result;
+    }
 }
