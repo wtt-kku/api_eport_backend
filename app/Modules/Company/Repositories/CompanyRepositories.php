@@ -70,7 +70,7 @@ class CompanyRepositories extends Controller
                 'province_id' => $request['payloads']['amphur_id'],
             ];
 
-            $response =  $this->companyModel->editCopany($cou_id, $data);
+            $response =  $this->companyModel->editCompany($cou_id, $data);
         } else {
             $response = [
                 'resultCode' => 403,

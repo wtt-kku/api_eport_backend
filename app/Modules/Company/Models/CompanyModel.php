@@ -94,7 +94,7 @@ class CompanyModel
         }
     }
 
-    public function editCopany($cou_id, $data)
+    public function editCompany($cou_id, $data)
     {
         try {
 
