@@ -46,6 +46,7 @@ class Filters extends BaseConfig
             'before' => [
                 API_PATH . '/member/edit',
                 API_PATH . '/company/edit',
+                API_PATH . '/university/edit',
             ],
         ],
     ];
