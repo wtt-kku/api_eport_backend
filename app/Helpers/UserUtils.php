@@ -63,4 +63,14 @@ class UserUtils
             return false;
         }
     }
+
+    public function getIdbyToken($token)
+    {
+        try {
+            $decode = (array) JWT::decode($token, JWT_KEY, array(JWT_ALGORITHM));
+            return $decode['id'];
+        } catch (\Exception $e) {
+            return "";
+        }
+    }
 }
