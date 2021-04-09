@@ -50,9 +50,9 @@ class MemberRepositories extends Controller
     public function memberEdit($request)
     {
         $token = $request['headers']['Authorization'];
-        $checkType = $this->userUtils->jwtDecodeCheckAccType($token, "member");
-        if ($checkType) {
-            $member_id = $request['payloads']['member_id'];
+        $member_id = $request['payloads']['member_id'];
+        $permission = $this->userUtils->checkPermission($token, $member_id, "member");
+        if ($permission) {
             $data = [
                 'member_email' =>  $request['payloads']['email'],
                 'firstname' =>  $request['payloads']['firstname'],
@@ -62,7 +62,7 @@ class MemberRepositories extends Controller
         } else {
             $response = [
                 'resultCode' => 403,
-                'resultMessage' => 'your account must be member.',
+                'resultMessage' => 'Permission denied.',
             ];
         }
         $this->logger->writeApiLogs($request, $response, 'member_edit');

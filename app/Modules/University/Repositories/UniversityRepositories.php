@@ -56,9 +56,10 @@ class UniversityRepositories extends Controller
     public function universityEdit($request)
     {
         $token = $request['headers']['Authorization'];
-        $checkType = $this->userUtils->jwtDecodeCheckAccType($token, "university");
-        if ($checkType) {
-            $cou_id = $request['payloads']['cou_id'];
+        $cou_id = $request['payloads']['cou_id'];
+        $permission = $this->userUtils->checkPermission($token, $cou_id, "university");
+        if ($permission) {
+
             $data = [
                 'cou_name_th' => $request['payloads']['comnameTH'],
                 'cou_name_en' => $request['payloads']['comnameEN'],
@@ -66,15 +67,15 @@ class UniversityRepositories extends Controller
                 'cou_tax_id' => $request['payloads']['taxID'],
                 'phone' => $request['payloads']['phone'],
                 'address' => $request['payloads']['address'],
-                'amphur_id' => $request['payloads']['province_id'],
-                'province_id' => $request['payloads']['amphur_id'],
+                'amphur_id' => $request['payloads']['amphur_id'],
+                'province_id' => $request['payloads']['province_id'],
             ];
 
             $response =  $this->universityModel->editUniversity($cou_id, $data);
         } else {
             $response = [
                 'resultCode' => 403,
-                'resultMessage' => 'your account must be university.',
+                'resultMessage' => 'Permission denied.',
             ];
         }
         $this->logger->writeApiLogs($request, $response, 'university_edit');

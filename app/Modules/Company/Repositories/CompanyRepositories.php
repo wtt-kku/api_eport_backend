@@ -56,9 +56,9 @@ class CompanyRepositories extends Controller
     public function companyEdit($request)
     {
         $token = $request['headers']['Authorization'];
-        $checkType = $this->userUtils->jwtDecodeCheckAccType($token, "company");
-        if ($checkType) {
-            $cou_id = $request['payloads']['cou_id'];
+        $cou_id = $request['payloads']['cou_id'];
+        $permission = $this->userUtils->checkPermission($token, $cou_id, "company");
+        if ($permission) {
             $data = [
                 'cou_name_th' => $request['payloads']['comnameTH'],
                 'cou_name_en' => $request['payloads']['comnameEN'],
@@ -66,15 +66,15 @@ class CompanyRepositories extends Controller
                 'cou_tax_id' => $request['payloads']['taxID'],
                 'phone' => $request['payloads']['phone'],
                 'address' => $request['payloads']['address'],
-                'amphur_id' => $request['payloads']['province_id'],
-                'province_id' => $request['payloads']['amphur_id'],
+                'amphur_id' => $request['payloads']['amphur_id'],
+                'province_id' => $request['payloads']['province_id'],
             ];
 
             $response =  $this->companyModel->editCompany($cou_id, $data);
         } else {
             $response = [
                 'resultCode' => 403,
-                'resultMessage' => 'your account must be company.',
+                'resultMessage' => 'Permission denied.',
             ];
         }
         $this->logger->writeApiLogs($request, $response, 'company_edit');
