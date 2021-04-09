@@ -50,10 +50,7 @@ class MemberModel
     public function CreateToken($data)
     {
         $setToken = array(
-            'member_id' => $data['member_id'],
-            'username' => $data['username'],
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
+            'id' => $data['member_id'],
             'account_type' => 'member'
         );
         $token = $this->userUtils->jwtEncodeToken($setToken, time() + TOKEN_EXPIRE);

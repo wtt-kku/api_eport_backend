@@ -51,9 +51,7 @@ class CompanyModel
     public function CreateToken($data)
     {
         $setToken = array(
-            'cou_id' => $data['cou_id'],
-            'cou_username' => $data['cou_username'],
-            'cou_email' => $data['cou_email'],
+            'id' => $data['cou_id'],
             'account_type' => 'company'
         );
         $token = $this->userUtils->jwtEncodeToken($setToken, time() + TOKEN_EXPIRE);
