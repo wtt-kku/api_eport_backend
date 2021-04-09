@@ -13,4 +13,36 @@ class JobModel
         $this->userUtils = new UserUtils();
         $this->db = \Config\Database::connect();
     }
+
+    public function addJob($data)
+    {
+        $cateTable = $this->db->table('category');
+        $query = $cateTable->select('*')
+            ->where('category_id', $data['category_id'])
+            ->get()->getResultArray();
+        $isExistCate = !empty($query) ? true : false;
+
+        if (!$isExistCate) {
+            $result = array(
+                'resultCode' => 401,
+                'resultMessage' => 'Category Invalid',
+            );
+            return $result;
+        }
+
+        try {
+            $this->jobEntity->insert($data);
+            $result = array(
+                'resultCode' => 201,
+                'resultMessage' => 'successfully!',
+            );
+            return $result;
+        } catch (\Exception $e) {
+            $result = array(
+                'resultCode' => 500,
+                'resultMessage' => 'error!'
+            );
+            return $result;
+        }
+    }
 }

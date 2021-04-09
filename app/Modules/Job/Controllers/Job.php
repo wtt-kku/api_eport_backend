@@ -5,7 +5,7 @@ namespace App\Modules\Job\Controllers;
 use App\Libraries\APIRequest;
 use App\Modules\Job\Repositories\JobRepositories;
 
-class Assets extends BaseController
+class Job extends BaseController
 {
     /**
      * Constructor.
@@ -14,5 +14,22 @@ class Assets extends BaseController
     {
         $this->apiRequest = new APIRequest();
         $this->jobRepositories = new JobRepositories();
+    }
+
+    public function addJob()
+    {
+        $rules = [
+            'category_id' => 'required|integer',
+            'job_name' => 'required|string',
+            'job_description' => 'required|string',
+            'salary' => 'required|integer',
+        ];
+
+        $request = $this->apiRequest->getRequestInput($this->request);
+        if (!$this->apiRequest->validateRequest($request, $rules)) {
+            return $this->fail($this->apiRequest->validator->getErrors());
+        }
+
+        return $this->setResponseFormat('json')->respond($this->jobRepositories->addJob($request), 200);
     }
 }

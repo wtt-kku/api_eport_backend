@@ -47,6 +47,7 @@ class Filters extends BaseConfig
                 API_PATH . '/member/edit',
                 API_PATH . '/company/edit',
                 API_PATH . '/university/edit',
+                API_PATH . '/job/add',
             ],
         ],
     ];
