@@ -49,4 +49,18 @@ class UserUtils
             return $result;
         }
     }
+
+    public function checkPermission($token, $id_owner, $usertype)
+    {
+        try {
+            $decode = (array) JWT::decode($token, JWT_KEY, array(JWT_ALGORITHM));
+            if (($id_owner == $decode['id']) && ($usertype ==  $decode['account_type'])) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
 }
