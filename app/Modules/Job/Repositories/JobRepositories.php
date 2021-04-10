@@ -34,7 +34,7 @@ class JobRepositories extends Controller
             'salary' => $request['payloads']['salary'],
         ];
         $response =  $this->jobModel->addJob($data);
-        $this->logger->writeApiLogs($request, $response, 'member_register');
+        $this->logger->writeApiLogs($request, $response, 'add_job');
         return $response;
     }
 }
