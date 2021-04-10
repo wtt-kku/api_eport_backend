@@ -45,4 +45,14 @@ class JobModel
             return $result;
         }
     }
+
+    public function getAllJob()
+    {
+        $result = $this->jobEntity->where('status', '1')->findAll();
+        return [
+            'resultCode' => 200,
+            'resultMessage' => 'successfully!',
+            'data' => $result
+        ];
+    }
 }

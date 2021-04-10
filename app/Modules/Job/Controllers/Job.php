@@ -32,4 +32,10 @@ class Job extends BaseController
 
         return $this->setResponseFormat('json')->respond($this->jobRepositories->addJob($request), 200);
     }
+
+    public function allJob()
+    {
+        $request = $this->apiRequest->getRequestInput($this->request);
+        return $this->setResponseFormat('json')->respond($this->jobRepositories->allJob($request), 200);
+    }
 }
