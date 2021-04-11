@@ -38,4 +38,19 @@ class Job extends BaseController
         $request = $this->apiRequest->getRequestInput($this->request);
         return $this->setResponseFormat('json')->respond($this->jobRepositories->allJob($request), 200);
     }
+
+    public function getJobDetail()
+    {
+        $rules = [
+            'job_id' => 'required|integer',
+        ];
+
+        $request = $this->apiRequest->getRequestInput($this->request);
+        if (!$this->apiRequest->validateRequest($request, $rules)) {
+            return $this->fail($this->apiRequest->validator->getErrors());
+        }
+
+
+        return $this->setResponseFormat('json')->respond($this->jobRepositories->getJobDetail($request), 200);
+    }
 }

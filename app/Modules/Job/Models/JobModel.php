@@ -55,4 +55,35 @@ class JobModel
             'data' => $result
         ];
     }
+
+    public function getJobDetail($job_id)
+    {
+        $jobTable = $this->db->table('job');
+        $query = $jobTable->select('*')
+            ->where('job_id', $job_id)
+            ->where('status', "1")
+            ->get()->getResultArray();
+        $isExist = !empty($query) ? true : false;
+        if ($isExist) {
+            $filterData = 'job.job_id,category.category_name,job.job_name,job.job_description,job.salary,cou.cou_id,cou.cou_name_th,job.created_at';
+            $builder = $this->db->table('job');
+            $builder = $builder->select($filterData);
+            $builder = $builder->where('job_id', $job_id);
+            $builder = $builder->join('category', 'category.category_id  = job.category_id');
+            $builder = $builder->join('cou', 'cou.cou_id = job.cou_id');
+            $jobDeatil = $builder->get()->getResultArray();
+
+            $result = array(
+                'resultCode' => 200,
+                'resultMessage' => 'successfully!',
+                'data' => $jobDeatil
+            );
+        } else {
+            $result = array(
+                'resultCode' => 401,
+                'resultMessage' => 'your job_id is invalid.',
+            );
+        }
+        return $result;
+    }
 }

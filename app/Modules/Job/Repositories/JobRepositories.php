@@ -44,4 +44,12 @@ class JobRepositories extends Controller
         $this->logger->writeApiLogs($request, $response, 'get_jobs');
         return $response;
     }
+
+    public function getJobDetail($request)
+    {
+        $job_id = $request['payloads']['job_id'];
+        $response =  $this->jobModel->getJobDetail($job_id);
+        $this->logger->writeApiLogs($request, $response, 'get_job_detail');
+        return $response;
+    }
 }
