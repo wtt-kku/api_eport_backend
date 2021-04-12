@@ -52,4 +52,14 @@ class JobRepositories extends Controller
         $this->logger->writeApiLogs($request, $response, 'get_job_detail');
         return $response;
     }
+
+    public function deleteJob($request)
+    {
+        $token = $request['headers']['Authorization'];
+        $companyId = $this->userUtils->getIdbyToken($token);
+        $jobId = $request['payloads']['job_id'];
+        $response =  $this->jobModel->deleteJob($companyId, $jobId);
+        $this->logger->writeApiLogs($request, $response, 'delete_job');
+        return $response;
+    }
 }

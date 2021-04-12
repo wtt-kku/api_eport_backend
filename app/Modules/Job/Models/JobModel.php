@@ -86,4 +86,31 @@ class JobModel
         }
         return $result;
     }
+
+    public function deleteJob($companyId, $jobId)
+    {
+        $condition = $this->jobEntity->select('*')
+            ->where('cou_id', $companyId)
+            ->where('job_id', $jobId);
+        $query = $condition->get()->getResultArray();
+        $isOwner = !empty($query) ? true : false;
+
+        if (!$isOwner) {
+            $result = array(
+                'resultCode' => 403,
+                'resultMessage' => 'Permission denied.',
+            );
+            return $result;
+        } else {
+            $this->jobEntity->select('*')
+                ->where('cou_id', $companyId)
+                ->where('job_id', $jobId)
+                ->delete();
+            $result = array(
+                'resultCode' => 200,
+                'resultMessage' => 'Deleted successfully.',
+            );
+            return $result;
+        }
+    }
 }

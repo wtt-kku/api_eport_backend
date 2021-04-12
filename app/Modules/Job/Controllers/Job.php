@@ -53,4 +53,19 @@ class Job extends BaseController
 
         return $this->setResponseFormat('json')->respond($this->jobRepositories->getJobDetail($request), 200);
     }
+
+    public function deleteJob()
+    {
+        $rules = [
+            'job_id' => 'required|integer',
+        ];
+
+        $request = $this->apiRequest->getRequestInput($this->request);
+        if (!$this->apiRequest->validateRequest($request, $rules)) {
+            return $this->fail($this->apiRequest->validator->getErrors());
+        }
+
+
+        return $this->setResponseFormat('json')->respond($this->jobRepositories->deleteJob($request), 200);
+    }
 }
