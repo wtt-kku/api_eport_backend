@@ -56,9 +56,9 @@ class EventRepositories extends Controller
     public function deleteEvent($request)
     {
         $token = $request['headers']['Authorization'];
-        $companyId = $this->userUtils->getIdbyToken($token);
+        $universityId = $this->userUtils->getIdbyToken($token);
         $eventId = $request['payloads']['event_id'];
-        $response =  $this->eventModel->deleteEvent($companyId, $eventId);
+        $response =  $this->eventModel->deleteEvent($universityId, $eventId);
         $this->logger->writeApiLogs($request, $response, 'delete_event');
         return $response;
     }
