@@ -51,6 +51,8 @@ class Filters extends BaseConfig
                 API_PATH . '/job/delete',
                 API_PATH . '/event/add',
                 API_PATH . '/event/delete',
+                API_PATH . '/jobreg/add',
+                API_PATH . '/jobreg/search',
             ],
         ],
     ];
