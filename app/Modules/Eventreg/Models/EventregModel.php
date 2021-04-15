@@ -17,12 +17,22 @@ class EventregModel
     public function addReg($data)
     {
         try {
-            $this->EventRegisEntity->insert($data);
-            $result = array(
-                'resultCode' => 201,
-                'resultMessage' => 'successfully!',
-            );
-            return $result;
+            $checkExist = $result = $this->EventRegisEntity->where($data)->get()->getResultArray();
+            $isExist = !empty($checkExist) ? true : false;
+            if ($isExist) {
+                $result = array(
+                    'resultCode' => 400,
+                    'resultMessage' => 'You have already registered',
+                );
+                return $result;
+            } else {
+                $this->EventRegisEntity->insert($data);
+                $result = array(
+                    'resultCode' => 201,
+                    'resultMessage' => 'successfully!',
+                );
+                return $result;
+            }
         } catch (\Exception $e) {
             $result = array(
                 'resultCode' => 500,

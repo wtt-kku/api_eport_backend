@@ -17,12 +17,22 @@ class JobregModel
     public function addReg($data)
     {
         try {
-            $this->JobRegisEntity->insert($data);
-            $result = array(
-                'resultCode' => 201,
-                'resultMessage' => 'successfully!',
-            );
-            return $result;
+            $checkExist = $result = $this->JobRegisEntity->where($data)->get()->getResultArray();
+            $isExist = !empty($checkExist) ? true : false;
+            if ($isExist) {
+                $result = array(
+                    'resultCode' => 400,
+                    'resultMessage' => 'You have already registered',
+                );
+                return $result;
+            } else {
+                $this->JobRegisEntity->insert($data);
+                $result = array(
+                    'resultCode' => 201,
+                    'resultMessage' => 'successfully!',
+                );
+                return $result;
+            }
         } catch (\Exception $e) {
             $result = array(
                 'resultCode' => 500,
