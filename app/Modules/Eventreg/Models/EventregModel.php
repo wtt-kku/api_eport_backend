@@ -44,8 +44,13 @@ class EventregModel
 
     public function searchReg($condition)
     {
+        $filterData = 'eventregister.eventregister_id,eventregister.created_at,event.event_id,event.event_name,event.event_description,member.member_id,member.firstname,member.lastname,member.member_email';
         try {
-            $result = $this->EventRegisEntity->where($condition)->findAll();
+            $result = $this->EventRegisEntity->where($condition)
+                ->select($filterData)
+                ->join('event', 'event.event_id = eventregister.event_id')
+                ->join('member', 'member.member_id = eventregister.member_id')
+                ->findAll();
             return [
                 'resultCode' => 200,
                 'resultMessage' => 'successfully!',

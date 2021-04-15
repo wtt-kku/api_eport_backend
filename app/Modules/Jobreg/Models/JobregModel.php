@@ -44,8 +44,13 @@ class JobregModel
 
     public function searchReg($condition)
     {
+        $filterData = 'jobregister.jobregister_id,jobregister.created_at,job.job_id,job.job_name,job.job_description,job.salary,member.member_id,member.firstname,member.lastname,member.member_email';
         try {
-            $result = $this->JobRegisEntity->where($condition)->findAll();
+            $result = $this->JobRegisEntity->where($condition)
+                ->select($filterData)
+                ->join('job', 'job.job_id = jobregister.job_id')
+                ->join('member', 'member.member_id = jobregister.member_id')
+                ->findAll();
             return [
                 'resultCode' => 200,
                 'resultMessage' => 'successfully!',
