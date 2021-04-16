@@ -80,8 +80,8 @@ defined('EXIT__AUTO_MAX') || define('EXIT__AUTO_MAX', 125); // highest automatic
 | API Version
 |--------------------------------------------------------------------------
  */
-defined('API_VERSION') || define('API_VERSION', 1);
-defined('API_PATH') || define('API_PATH', 'api/v' . API_VERSION);
+// defined('API_VERSION') || define('API_VERSION', 1);
+defined('API_PATH') || define('API_PATH', 'api');
 
 /*
 |--------------------------------------------------------------------------
