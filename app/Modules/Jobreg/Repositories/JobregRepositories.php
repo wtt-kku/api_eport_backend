@@ -46,8 +46,8 @@ class JobregRepositories extends Controller
     public function searchReg($request)
     {
         $condition = [];
-        (isset($request['payloads']['member_id']) && $request['payloads']['member_id']) ? $condition["member_id"] = $request['payloads']['member_id'] : false;
-        (isset($request['payloads']['job_id']) && $request['payloads']['job_id']) ? $condition["job_id"] = $request['payloads']['job_id'] : false;
+        (isset($request['payloads']['member_id']) && $request['payloads']['member_id']) ? $condition["jobregister.member_id"] = $request['payloads']['member_id'] : false;
+        (isset($request['payloads']['job_id']) && $request['payloads']['job_id']) ? $condition["jobregister.job_id"] = $request['payloads']['job_id'] : false;
         $response =  $this->jobregModel->searchReg($condition);
         $this->logger->writeApiLogs($request, $response, 'search_job_register');
         return $response;

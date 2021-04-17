@@ -47,8 +47,8 @@ class EventregRepositories extends Controller
     public function searchReg($request)
     {
         $condition = [];
-        (isset($request['payloads']['member_id']) && $request['payloads']['member_id']) ? $condition["member_id"] = $request['payloads']['member_id'] : false;
-        (isset($request['payloads']['event_id']) && $request['payloads']['event_id']) ? $condition["event_id"] = $request['payloads']['event_id'] : false;
+        (isset($request['payloads']['member_id']) && $request['payloads']['member_id']) ? $condition["eventregister.member_id"] = $request['payloads']['member_id'] : false;
+        (isset($request['payloads']['event_id']) && $request['payloads']['event_id']) ? $condition["eventregister.event_id"] = $request['payloads']['event_id'] : false;
         $response =  $this->eventregModel->searchReg($condition);
         $this->logger->writeApiLogs($request, $response, 'search_event_register');
         return $response;
